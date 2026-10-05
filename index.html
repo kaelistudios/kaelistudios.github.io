@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaeli</title>
+<meta name="description" content="Apps sencillas para aprender, enseñar y organizarse. / Simple apps to learn, teach and get organized.">
+<link rel="icon" href="wibblo-icon.png">
+<script>
+  // Idioma según el navegador: español o inglés (si no es ninguno, español).
+  // Sin JavaScript se ve en español, con el enlace "English" (cambia con #en).
+  (function () {
+    var langs = navigator.languages || [navigator.language || ''];
+    for (var i = 0; i < langs.length; i++) {
+      var l = String(langs[i]).toLowerCase();
+      if (l.indexOf('es') === 0) break;
+      if (l.indexOf('en') === 0) { document.documentElement.className = 'lang-en'; document.documentElement.lang = 'en'; break; }
+    }
+  })();
+</script>
+<style>
+  :root { --text:#1f1f24; --muted:#5f6368; --accent:#2f6fd6; --bg:#ffffff; --card:#f6f8fb; --border:#e3e6eb; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height:1.5; }
+  main { max-width:560px; margin:0 auto; padding:48px 16px 32px; }
+  .logo { display:block; width:240px; max-width:70%; height:auto; margin:0 auto 8px; }
+  .tagline { text-align:center; color:var(--muted); font-size:1.1rem; margin:0 0 32px; }
+  h2 { font-size:1rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 12px; }
+  .app { display:flex; gap:16px; align-items:center; padding:16px; background:var(--card); border:1px solid var(--border); border-radius:16px; color:inherit; text-decoration:none; }
+  .app:hover, .app:focus-visible { border-color:var(--accent); }
+  .app img { width:64px; height:64px; border-radius:14px; flex:none; }
+  .app strong { display:block; font-size:1.15rem; }
+  .app span { color:var(--muted); font-size:.95rem; }
+  .apps { display:grid; gap:12px; }
+  .switch { text-align:center; margin-top:32px; font-size:.9rem; }
+  .switch a { color:var(--accent); font-weight:600; text-decoration:none; }
+  footer { text-align:center; color:var(--muted); font-size:.85rem; padding:0 16px 32px; }
+  /* Idiomas: español por defecto; inglés con JavaScript (.lang-en) o con #en. */
+  #en { display:none; }
+  .lang-en #es { display:none; }
+  .lang-en #en { display:block; }
+  #en:target { display:block; }
+  main:has(#en:target) #es { display:none; }
+  #es:target { display:block; }
+  main:has(#es:target) #en { display:none; }
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="kaeli-logo.webp" width="800" height="333" alt="Kaeli">
+
+  <section id="es" lang="es">
+    <p class="tagline">Apps sencillas para aprender, enseñar y organizarse.</p>
+    <h2>Nuestras apps</h2>
+    <div class="apps">
+      <a class="app" href="https://wibblo.kaeliapps.com/">
+        <img src="wibblo-icon.png" width="96" height="96" alt="">
+        <div><strong>Wibblo</strong><span>Fichas imprimibles para el aula: bingo, sopa de letras, crucigramas y más.</span></div>
+      </a>
+    </div>
+    <p class="switch"><a href="#en">English</a></p>
+  </section>
+
+  <section id="en" lang="en">
+    <p class="tagline">Simple apps to learn, teach and get organized.</p>
+    <h2>Our apps</h2>
+    <div class="apps">
+      <a class="app" href="https://wibblo.kaeliapps.com/">
+        <img src="wibblo-icon.png" width="96" height="96" alt="">
+        <div><strong>Wibblo</strong><span>Printable classroom worksheets: bingo, word search, crosswords and more.</span></div>
+      </a>
+    </div>
+    <p class="switch"><a href="#es">Español</a></p>
+  </section>
+</main>
+<footer>© Kaeli</footer>
+</body>
+</html>
