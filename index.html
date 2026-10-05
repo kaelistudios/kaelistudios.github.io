@@ -5,7 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kaeli</title>
 <meta name="description" content="Apps sencillas para aprender, enseñar y organizarse. / Simple apps to learn, teach and get organized.">
-<link rel="icon" href="wibblo-icon.png">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<!-- Imagen al compartir el enlace (1200x630). -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kaeli">
+<meta property="og:title" content="Kaeli">
+<meta property="og:description" content="Apps sencillas para aprender, enseñar y organizarse. / Simple apps to learn, teach and get organized.">
+<meta property="og:url" content="https://kaeliapps.com/">
+<meta property="og:image" content="https://kaeliapps.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kaeli">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kaeli">
+<meta name="twitter:image" content="https://kaeliapps.com/og-image.png">
 <script>
   // Idioma según el navegador: español o inglés (si no es ninguno, español).
   // Sin JavaScript se ve en español, con el enlace "English" (cambia con #en).
@@ -47,7 +64,10 @@
 </head>
 <body>
 <main>
-  <img class="logo" src="kaeli-logo.webp" width="800" height="333" alt="Kaeli">
+  <picture>
+    <source srcset="kaeli_logo_horizontal.webp" type="image/webp">
+    <img class="logo" src="kaeli_logo_horizontal.png" width="1184" height="493" alt="Kaeli">
+  </picture>
 
   <section id="es" lang="es">
     <p class="tagline">Apps sencillas para aprender, enseñar y organizarse.</p>
