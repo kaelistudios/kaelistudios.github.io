@@ -9,6 +9,22 @@ cookies, sin analítica, sin fuentes ni scripts externos, en español e inglés
 según el idioma del navegador (sin JavaScript se ven en español, con un enlace
 "English" que funciona solo con CSS mediante `#en`).
 
+## Textos: no encasillar el público de las apps
+
+En ningún texto publicado (textos visibles, `<title>`, meta description, Open
+Graph, `alt` de imágenes, README) se describe una app de Kaeli como algo para
+el aula, la escuela, maestros o docentes, ni *classroom*, *school* o *teachers*
+en inglés. Descripción de referencia de Wibblo:
+
+- ES: "Fichas imprimibles: bingo, sopa de letras, crucigramas y más."
+- EN: "Printable activities: bingo, word search, crosswords and more."
+
+Al publicar una página nueva, revisar con:
+
+```bash
+grep -rniE "aula|escuela|escolar|maestr|docente|classroom|school|teacher" --include="*.html" --include="*.md" --exclude="README.md" .
+```
+
 ## Organización: un repo público por sitio
 
 | Repo | Dominio | Contenido |
