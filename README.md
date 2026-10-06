@@ -32,13 +32,17 @@ grep -rniE "aula|escuela|escolar|maestr|docente|classroom|school|teacher" --incl
 | `kaelistudios.github.io` (este) | `kaeliapps.com` | Inicio de Kaeli con la lista de apps |
 | `wibblo-web` | `wibblo.kaeliapps.com` | Página del QR (`/`) y política de privacidad (`/privacidad/`) |
 | `kaeli-legal` | sin dominio propio | Solo redirige la dirección vieja de la política de Wibblo |
+| *(Firebase Hosting, proyecto `blunkoo-prod`)* | `blunkoo.kaeliapps.com` | Página de Blunkoo, privacidad, términos y borrar la cuenta. Vive en el repo de la app (carpeta `web/`), no en GitHub Pages; su CNAME en Cloudflare apunta a `blunkoo-prod.web.app` |
 
 GitHub Pages admite **un dominio por repo**, por eso cada app tiene el suyo.
 Como este repo usa `kaeliapps.com`, cualquier otro repo con Pages **sin**
 dominio propio se sirve en `kaeliapps.com/<repo>/` (y su dirección de
 `kaelistudios.github.io/<repo>/` redirige ahí).
 
-## Cómo agregar una app nueva (ej. `blunkoo.kaeliapps.com`)
+## Cómo agregar una app nueva con GitHub Pages (ej. `otraapp.kaeliapps.com`)
+
+> Blunkoo es la excepción: su página se publica con Firebase Hosting. Para ella solo se hizo el paso 4 (sumarla a la lista de `index.html`).
+
 
 1. **DNS en Cloudflare** (zona `kaeliapps.com`): un registro `CNAME`
    `blunkoo` → `kaelistudios.github.io`, en **DNS only** (nube gris). Con
