@@ -34,6 +34,7 @@ grep -rniE "aula|escuela|escolar|maestr|docente|classroom|school|teacher" --incl
 | `kaeli-legal` | sin dominio propio | Solo redirige la dirección vieja de la política de Wibblo |
 | *(Firebase Hosting, proyecto `blunkoo-prod`)* | `blunkoo.kaeliapps.com` | Página de Blunkoo, privacidad, términos y borrar la cuenta. Vive en el repo de la app (carpeta `web/`), no en GitHub Pages; su CNAME en Cloudflare apunta a `blunkoo-prod.web.app` |
 | *(Cloudflare Pages, proyecto `alojaconmigo-web`)* | `alojaconmigo.kaeliapps.com` | Web de AlojaConmigo: presentación, descarga (`/descargar`), páginas de reservas de cada anfitrión y legales. Vive en el repo privado de la app (`kaelistudios/alojaconmigo`, carpeta `web/`) |
+| *(Cloudflare Pages, proyecto `sesly-web`)* | `sesly.kaeliapps.com` | Web de Sesly: portada, guías (`/guias/`), páginas de citas de cada profesional y legales. Vive en el repo privado de la app (`kaelistudios/sesly`, carpeta `web/`) |
 
 GitHub Pages admite **un dominio por repo**, por eso cada app tiene el suyo.
 Como este repo usa `kaeliapps.com`, cualquier otro repo con Pages **sin**
@@ -42,7 +43,7 @@ dominio propio se sirve en `kaeliapps.com/<repo>/` (y su dirección de
 
 ## Cómo agregar una app nueva con GitHub Pages (ej. `otraapp.kaeliapps.com`)
 
-> Blunkoo y AlojaConmigo son la excepción: sus páginas se publican fuera de GitHub Pages (Firebase Hosting y Cloudflare Pages). Para ellas solo se hizo el paso 4 (sumarlas a la lista de `index.html`).
+> Blunkoo, AlojaConmigo y Sesly son la excepción: sus páginas se publican fuera de GitHub Pages (Firebase Hosting y Cloudflare Pages). Para ellas solo se hizo el paso 4 (sumarlas a la lista de `index.html`).
 
 
 1. **DNS en Cloudflare** (zona `kaeliapps.com`): un registro `CNAME`
