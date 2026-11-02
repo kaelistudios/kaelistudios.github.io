@@ -55,6 +55,7 @@
   body { margin:0; background:var(--bg); color:var(--ink); font-family:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased; }
   img { max-width:100%; height:auto; }
   a { color:inherit; }
+  a:focus-visible { outline:3px solid var(--blue); outline-offset:3px; border-radius:12px; }
   .wrap { max-width:1080px; margin:0 auto; padding:0 20px; }
 
   /* Barra superior */
@@ -67,7 +68,7 @@
   .hero { position:relative; overflow:hidden; padding:40px 0 56px; }
   .hero::before { content:""; position:absolute; inset:-30% -10% auto auto; width:620px; height:620px; border-radius:50%;
     background:radial-gradient(circle at 30% 30%, rgba(31,134,238,.20), rgba(226,51,143,.14) 55%, transparent 70%); z-index:-1; }
-  .eyebrow { display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--pink); margin:0 0 14px; }
+  .eyebrow { display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#c4237a; margin:0 0 14px; }
   h1 { font-size:clamp(2.2rem, 6vw, 3.9rem); line-height:1.05; letter-spacing:-.03em; color:var(--navy); margin:0 0 18px; max-width:13ch; }
   h1 em { font-style:normal; background:linear-gradient(90deg, var(--blue), var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .lead { font-size:clamp(1.05rem, 2.2vw, 1.25rem); color:var(--muted); max-width:52ch; margin:0 0 32px; }
@@ -83,9 +84,11 @@
 
   /* Apps */
   .apps { padding-top:24px; padding-bottom:40px; display:grid; gap:28px; }
-  .app { --c:var(--blue); --tint:#eef5fe; position:relative; display:grid; grid-template-columns:1fr; gap:24px; padding:32px; border-radius:var(--radius); background:var(--tint); overflow:hidden; }
+  .app { --c:var(--blue); --tint:#eef5fe; position:relative; display:grid; grid-template-columns:1fr; grid-template-areas:"head" "body" "shot"; gap:24px; padding:32px; border-radius:var(--radius); background:var(--tint); overflow:hidden; }
   .app::after { content:""; position:absolute; right:-80px; top:-80px; width:260px; height:260px; border-radius:50%; background:var(--c); opacity:.10; }
-  .app-head { display:flex; align-items:center; gap:16px; }
+  .app-head { grid-area:head; display:flex; align-items:center; gap:16px; }
+  .app-body { grid-area:body; position:relative; z-index:1; }
+  .shot { grid-area:shot; justify-self:center; width:100%; max-width:230px; height:auto; aspect-ratio:560/848; object-fit:cover; object-position:top; border-radius:28px; box-shadow:0 18px 40px rgba(13,36,83,.18), 0 0 0 6px #fff; position:relative; z-index:1; }
   .app-head img { width:72px; height:72px; border-radius:18px; flex:none; box-shadow:0 6px 18px rgba(13,36,83,.15); }
   .for { display:block; font-size:.8rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--c); }
   .app h2 { margin:0; font-size:1.7rem; letter-spacing:-.02em; color:var(--navy); }
@@ -103,12 +106,12 @@
   .status::before { content:"●"; margin-right:6px; color:var(--c); }
 
   /* Colores por app (sacados de cada ícono) */
-  .wibblo { --c:#1f86ee; --tint:#edf5fe; }
-  .blunkoo { --c:#e8722c; --tint:#fdf2ea; }
-  .aloja { --c:#2f8a6e; --tint:#ecf6f1; }
+  .wibblo { --c:#1468c8; --tint:#edf5fe; }
+  .blunkoo { --c:#b4501a; --tint:#fdf2ea; }
+  .aloja { --c:#22705a; --tint:#ecf6f1; }
   .sesly { --c:#3157c8; --tint:#eef1fc; }
   .creatiplan { --c:#6a55c4; --tint:#f2effb; }
-  .katawi { --c:#d63f63; --tint:#fdeff2; }
+  .katawi { --c:#bb2d52; --tint:#fdeff2; }
 
   /* Sobre Kaeli */
   .about { margin:24px 0 56px; padding:40px 32px; border-radius:var(--radius); background:var(--navy); color:#dfe6f5; display:grid; gap:24px; }
@@ -124,18 +127,25 @@
   footer .contact { display:grid; gap:6px; }
   footer .contact a { color:var(--navy); font-weight:600; }
   .social { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
-  .social a { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.1); color:#fff; }
+  .social a { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; color:#fff; transition:transform .15s; }
+  .social a:hover, .social a:focus-visible { transform:translateY(-2px); }
+  .ig { background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+  .fb { background:#0866ff; }
+  .tt { background:#000; box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
   .social a:hover, .social a:focus-visible { background:rgba(255,255,255,.2); }
   footer a { text-decoration:none; }
   footer a:hover { color:var(--blue); }
   footer .social-foot { display:flex; gap:6px; }
-  footer .social-foot a { display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center; border-radius:50%; color:var(--navy); }
-  footer .social-foot a:hover { background:var(--soft); }
+  footer .social-foot { gap:8px; }
+  footer .social-foot a { display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center; border-radius:50%; color:#fff; }
+  footer .social-foot a:hover { color:#fff; filter:brightness(1.1); }
+  footer .social-foot svg { width:18px; height:18px; }
 
   @media (min-width:820px) {
-    .app { grid-template-columns:minmax(220px, .8fr) 1.4fr; padding:44px; align-items:start; }
-    .app-head { flex-direction:column; align-items:flex-start; }
-    .app-head img { width:96px; height:96px; border-radius:24px; }
+    .app { grid-template-columns:1fr 280px; grid-template-areas:"head shot" "body shot"; grid-template-rows:auto 1fr; column-gap:48px; row-gap:20px; padding:44px 48px; align-items:start; }
+    .app-head img { width:80px; height:80px; border-radius:22px; }
+    .shot { max-width:280px; align-self:center; }
+    .app:nth-of-type(even) { grid-template-columns:280px 1fr; grid-template-areas:"shot head" "shot body"; }
     .about { grid-template-columns:1fr 1.2fr; align-items:center; padding:48px; }
   }
   @media (max-width:480px) {
@@ -175,12 +185,12 @@
 
         <p class="pick-title">¿Qué necesitas hoy?</p>
         <nav class="pick" aria-label="Elige una app">
-          <a href="#wibblo" style="--c:#1f86ee"><img src="wibblo-icon.png" width="96" height="96" alt=""><span><b>Crear actividades imprimibles</b>Wibblo</span></a>
-          <a href="#blunkoo" style="--c:#e8722c"><img src="blunkoo-icon.png" width="96" height="96" alt=""><span><b>Organizar a la familia</b>Blunkoo</span></a>
-          <a href="#alojaconmigo" style="--c:#2f8a6e"><img src="alojaconmigo-icon.png" width="96" height="96" alt=""><span><b>Recibir reservas sin comisión</b>AlojaConmigo</span></a>
+          <a href="#wibblo" style="--c:#1468c8"><img src="wibblo-icon.png" width="96" height="96" alt=""><span><b>Crear actividades imprimibles</b>Wibblo</span></a>
+          <a href="#blunkoo" style="--c:#b4501a"><img src="blunkoo-icon.png" width="96" height="96" alt=""><span><b>Organizar a la familia</b>Blunkoo</span></a>
+          <a href="#alojaconmigo" style="--c:#22705a"><img src="alojaconmigo-icon.png" width="96" height="96" alt=""><span><b>Recibir reservas sin comisión</b>AlojaConmigo</span></a>
           <a href="#creatiplan" style="--c:#6a55c4"><img src="creatiplan-icon.png" width="96" height="96" alt=""><span><b>Planear mi contenido</b>CreatiPlan</span></a>
           <a href="#sesly" style="--c:#3157c8"><img src="sesly-icon.png" width="96" height="96" alt=""><span><b>Ordenar citas y cobros</b>Sesly</span></a>
-          <a href="#katawi" style="--c:#d63f63"><img src="katawi-icon.png" width="96" height="96" alt=""><span><b>Vender por catálogo</b>Katawi</span></a>
+          <a href="#katawi" style="--c:#bb2d52"><img src="katawi-icon.png" width="96" height="96" alt=""><span><b>Vender por catálogo</b>Katawi</span></a>
         </nav>
       </div>
     </section>
@@ -191,7 +201,7 @@
           <img src="wibblo-icon.png" width="96" height="96" alt="">
           <div><span class="for">Para crear y jugar</span><h2>Wibblo</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Convierte tus ideas en actividades imprimibles.</h3>
           <ul>
             <li>12 actividades en una sola app: bingo, sopa de letras, crucigramas y más.</li>
@@ -203,6 +213,7 @@
             <span class="status">Disponible en App Store · pronto en Google Play</span>
           </div>
         </div>
+        <img class="shot" src="capturas/wibblo-es.webp" width="560" height="848" loading="lazy" decoding="async" alt="Pantalla de Wibblo">
       </article>
 
       <article class="app blunkoo" id="blunkoo">
@@ -210,7 +221,7 @@
           <img src="blunkoo-icon.png" width="96" height="96" alt="">
           <div><span class="for">Para familias</span><h2>Blunkoo</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>La agenda de toda la familia.</h3>
           <ul>
             <li>Toma una foto de la circular o del chat del grupo y Blunkoo propone las tareas, exámenes, eventos y pagos.</li>
@@ -222,6 +233,7 @@
             <span class="status">Muy pronto · 30 días gratis</span>
           </div>
         </div>
+        <img class="shot" src="capturas/blunkoo-es.webp" width="560" height="848" loading="lazy" decoding="async" alt="Pantalla de Blunkoo">
       </article>
 
       <article class="app aloja" id="alojaconmigo">
@@ -229,7 +241,7 @@
           <img src="alojaconmigo-icon.png" width="96" height="96" alt="">
           <div><span class="for">Para anfitriones</span><h2>AlojaConmigo</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Reservas directas para tu alquiler vacacional, sin comisión por reserva.</h3>
           <ul>
             <li>Tu propia página de reservas, en 4 idiomas.</li>
@@ -240,6 +252,7 @@
             <a class="btn" href="https://alojaconmigo.kaeliapps.com/">Conocer AlojaConmigo</a>
           </div>
         </div>
+        <img class="shot" src="capturas/alojaconmigo-es.webp" width="560" height="848" loading="lazy" decoding="async" alt="Pantalla de AlojaConmigo">
       </article>
 
       <article class="app creatiplan" id="creatiplan">
@@ -247,7 +260,7 @@
           <img src="creatiplan-icon.png" width="96" height="96" alt="">
           <div><span class="for">Para creadores de contenido</span><h2>CreatiPlan</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Del primer chispazo a la publicación.</h3>
           <ul>
             <li>Un proyecto para cada marca, negocio o canal, sin mezclar contenidos.</li>
@@ -259,6 +272,7 @@
             <span class="status">Gratis con 1 proyecto · apps muy pronto</span>
           </div>
         </div>
+        <img class="shot" src="capturas/creatiplan-es.webp" width="560" height="848" loading="lazy" decoding="async" alt="Pantalla de CreatiPlan">
       </article>
 
       <article class="app sesly" id="sesly">
@@ -266,7 +280,7 @@
           <img src="sesly-icon.png" width="96" height="96" alt="">
           <div><span class="for">Para quienes trabajan por sesiones</span><h2>Sesly</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Tus citas, clientes y cobros, en orden y en un solo lugar.</h3>
           <ul>
             <li>Agenda clara para ver tu día, con citas únicas o recurrentes.</li>
@@ -278,6 +292,7 @@
             <span class="status">Muy pronto · 30 días gratis</span>
           </div>
         </div>
+        <img class="shot" src="capturas/sesly-es.webp" width="560" height="848" loading="lazy" decoding="async" alt="Pantalla de Sesly">
       </article>
 
       <article class="app katawi" id="katawi">
@@ -285,7 +300,7 @@
           <img src="katawi-icon.png" width="96" height="96" alt="">
           <div><span class="for">Para quienes venden por catálogo</span><h2>Katawi</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Tu venta por catálogo, sin cuaderno ni chats regados.</h3>
           <ul>
             <li>Clientas y pedidos organizados por campaña, de cualquier marca.</li>
@@ -297,6 +312,7 @@
             <span class="status">Muy pronto · 30 días gratis</span>
           </div>
         </div>
+        <img class="shot" src="capturas/katawi-es.webp" width="560" height="848" loading="lazy" decoding="async" alt="Pantalla de Katawi">
       </article>
 
       <section class="about" aria-labelledby="about-es">
@@ -311,7 +327,7 @@
             <div><b>Tus datos, tuyos</b>Puedes borrar tu cuenta cuando quieras.</div>
           </div>
           <nav class="social" aria-label="Redes sociales de Kaeli">
-            <a href="https://www.instagram.com/kaeli.app/" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a href="https://www.facebook.com/share/198mCBLTCw/" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a href="https://www.tiktok.com/@kaeli.app" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+            <a href="https://www.instagram.com/kaeli.app/" aria-label="Instagram" title="Instagram" class="ig"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a href="https://www.facebook.com/share/198mCBLTCw/" aria-label="Facebook" title="Facebook" class="fb"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a href="https://www.tiktok.com/@kaeli.app" aria-label="TikTok" title="TikTok" class="tt"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
           </nav>
         </div>
       </section>
@@ -331,9 +347,9 @@
         <a href="https://creatiplan.kaeliapps.com/">CreatiPlan</a>
         <a href="https://sesly.kaeliapps.com/?lang=es">Sesly</a>
         <span class="social-foot">
-          <a href="https://www.instagram.com/kaeli.app/" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
-          <a href="https://www.facebook.com/share/198mCBLTCw/" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a>
-          <a href="https://www.tiktok.com/@kaeli.app" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+          <a href="https://www.instagram.com/kaeli.app/" aria-label="Instagram" title="Instagram" class="ig"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
+          <a href="https://www.facebook.com/share/198mCBLTCw/" aria-label="Facebook" title="Facebook" class="fb"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a>
+          <a href="https://www.tiktok.com/@kaeli.app" aria-label="TikTok" title="TikTok" class="tt"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
         </span>
       </nav>
     </div>
@@ -359,12 +375,12 @@
 
         <p class="pick-title">What do you need today?</p>
         <nav class="pick" aria-label="Choose an app">
-          <a href="#wibblo-en" style="--c:#1f86ee"><img src="wibblo-icon.png" width="96" height="96" alt=""><span><b>Make printable activities</b>Wibblo</span></a>
-          <a href="#blunkoo-en" style="--c:#e8722c"><img src="blunkoo-icon.png" width="96" height="96" alt=""><span><b>Organize the family</b>Blunkoo</span></a>
-          <a href="#alojaconmigo-en" style="--c:#2f8a6e"><img src="alojaconmigo-icon.png" width="96" height="96" alt=""><span><b>Get commission-free bookings</b>AlojaConmigo</span></a>
+          <a href="#wibblo-en" style="--c:#1468c8"><img src="wibblo-icon.png" width="96" height="96" alt=""><span><b>Make printable activities</b>Wibblo</span></a>
+          <a href="#blunkoo-en" style="--c:#b4501a"><img src="blunkoo-icon.png" width="96" height="96" alt=""><span><b>Organize the family</b>Blunkoo</span></a>
+          <a href="#alojaconmigo-en" style="--c:#22705a"><img src="alojaconmigo-icon.png" width="96" height="96" alt=""><span><b>Get commission-free bookings</b>AlojaConmigo</span></a>
           <a href="#creatiplan-en" style="--c:#6a55c4"><img src="creatiplan-icon.png" width="96" height="96" alt=""><span><b>Plan my content</b>CreatiPlan</span></a>
           <a href="#sesly-en" style="--c:#3157c8"><img src="sesly-icon.png" width="96" height="96" alt=""><span><b>Manage appointments and payments</b>Sesly</span></a>
-          <a href="#katawi-en" style="--c:#d63f63"><img src="katawi-icon.png" width="96" height="96" alt=""><span><b>Sell by catalog</b>Katawi</span></a>
+          <a href="#katawi-en" style="--c:#bb2d52"><img src="katawi-icon.png" width="96" height="96" alt=""><span><b>Sell by catalog</b>Katawi</span></a>
         </nav>
       </div>
     </section>
@@ -375,7 +391,7 @@
           <img src="wibblo-icon.png" width="96" height="96" alt="">
           <div><span class="for">To create and play</span><h2>Wibblo</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Turn your ideas into printable activities.</h3>
           <ul>
             <li>12 activities in one app: bingo, word search, crosswords and more.</li>
@@ -387,6 +403,7 @@
             <span class="status">On the App Store · Google Play coming soon</span>
           </div>
         </div>
+        <img class="shot" src="capturas/wibblo-en.webp" width="560" height="848" loading="lazy" decoding="async" alt="Wibblo screen">
       </article>
 
       <article class="app blunkoo" id="blunkoo-en">
@@ -394,7 +411,7 @@
           <img src="blunkoo-icon.png" width="96" height="96" alt="">
           <div><span class="for">For families</span><h2>Blunkoo</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>The whole family's planner.</h3>
           <ul>
             <li>Snap a photo of a notice or the group chat and Blunkoo suggests the homework, tests, events and payments.</li>
@@ -406,6 +423,7 @@
             <span class="status">Coming soon · 30 days free</span>
           </div>
         </div>
+        <img class="shot" src="capturas/blunkoo-en.webp" width="560" height="848" loading="lazy" decoding="async" alt="Blunkoo screen">
       </article>
 
       <article class="app aloja" id="alojaconmigo-en">
@@ -413,7 +431,7 @@
           <img src="alojaconmigo-icon.png" width="96" height="96" alt="">
           <div><span class="for">For hosts</span><h2>AlojaConmigo</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Direct bookings for your vacation rental, with no commission per booking.</h3>
           <ul>
             <li>Your own booking page, in 4 languages.</li>
@@ -424,6 +442,7 @@
             <a class="btn" href="https://alojaconmigo.kaeliapps.com/">Discover AlojaConmigo</a>
           </div>
         </div>
+        <img class="shot" src="capturas/alojaconmigo-en.webp" width="560" height="848" loading="lazy" decoding="async" alt="AlojaConmigo screen">
       </article>
 
       <article class="app creatiplan" id="creatiplan-en">
@@ -431,7 +450,7 @@
           <img src="creatiplan-icon.png" width="96" height="96" alt="">
           <div><span class="for">For content creators</span><h2>CreatiPlan</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>From the first spark to the published post.</h3>
           <ul>
             <li>A project for each brand, business or channel, with no mixed-up content.</li>
@@ -443,6 +462,7 @@
             <span class="status">Free with 1 project · apps coming soon</span>
           </div>
         </div>
+        <img class="shot" src="capturas/creatiplan-en.webp" width="560" height="848" loading="lazy" decoding="async" alt="CreatiPlan screen">
       </article>
 
       <article class="app sesly" id="sesly-en">
@@ -450,7 +470,7 @@
           <img src="sesly-icon.png" width="96" height="96" alt="">
           <div><span class="for">For professionals who work in sessions</span><h2>Sesly</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Your appointments, clients and payments, organized in one place.</h3>
           <ul>
             <li>A clear schedule to see your day, with one-time or recurring appointments.</li>
@@ -462,6 +482,7 @@
             <span class="status">Coming soon · 30 days free</span>
           </div>
         </div>
+        <img class="shot" src="capturas/sesly-en.webp" width="560" height="848" loading="lazy" decoding="async" alt="Sesly screen">
       </article>
 
       <article class="app katawi" id="katawi-en">
@@ -469,7 +490,7 @@
           <img src="katawi-icon.png" width="96" height="96" alt="">
           <div><span class="for">For catalog and direct sellers</span><h2>Katawi</h2></div>
         </div>
-        <div>
+        <div class="app-body">
           <h3>Your catalog sales, without the notebook or scattered chats.</h3>
           <ul>
             <li>Customers and orders organized by campaign, for any brand.</li>
@@ -481,6 +502,7 @@
             <span class="status">Coming soon · 30 days free</span>
           </div>
         </div>
+        <img class="shot" src="capturas/katawi-en.webp" width="560" height="848" loading="lazy" decoding="async" alt="Katawi screen">
       </article>
 
       <section class="about" aria-labelledby="about-en">
@@ -495,7 +517,7 @@
             <div><b>Your data, yours</b>Delete your account whenever you want.</div>
           </div>
           <nav class="social" aria-label="Kaeli on social media">
-            <a href="https://www.instagram.com/kaeli.app/" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a href="https://www.facebook.com/share/198mCBLTCw/" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a href="https://www.tiktok.com/@kaeli.app" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+            <a href="https://www.instagram.com/kaeli.app/" aria-label="Instagram" title="Instagram" class="ig"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a href="https://www.facebook.com/share/198mCBLTCw/" aria-label="Facebook" title="Facebook" class="fb"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a href="https://www.tiktok.com/@kaeli.app" aria-label="TikTok" title="TikTok" class="tt"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
           </nav>
         </div>
       </section>
@@ -515,9 +537,9 @@
         <a href="https://creatiplan.kaeliapps.com/">CreatiPlan</a>
         <a href="https://sesly.kaeliapps.com/?lang=en">Sesly</a>
         <span class="social-foot">
-          <a href="https://www.instagram.com/kaeli.app/" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
-          <a href="https://www.facebook.com/share/198mCBLTCw/" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a>
-          <a href="https://www.tiktok.com/@kaeli.app" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+          <a href="https://www.instagram.com/kaeli.app/" aria-label="Instagram" title="Instagram" class="ig"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
+          <a href="https://www.facebook.com/share/198mCBLTCw/" aria-label="Facebook" title="Facebook" class="fb"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a>
+          <a href="https://www.tiktok.com/@kaeli.app" aria-label="TikTok" title="TikTok" class="tt"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
         </span>
       </nav>
     </div>
