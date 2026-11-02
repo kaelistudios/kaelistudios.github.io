@@ -5,9 +5,23 @@ desde este repo. `www.kaeliapps.com` redirige aquí sola (GitHub Pages lo hace
 cuando existe el registro DNS de `www`).
 
 Todas las páginas de Kaeli siguen las mismas reglas: HTML estático, sin
-cookies, sin analítica, sin fuentes ni scripts externos, en español e inglés
+cookies, sin fuentes externas, en español e inglés
 según el idioma del navegador (sin JavaScript se ven en español, con un enlace
 "English" que funciona solo con CSS mediante `#en`).
+
+## Estadísticas de visitas
+
+kaeliapps.com y wibblo.kaeliapps.com cuentan visitas con **Cloudflare Web Analytics**
+(gratis, sin cookies ni datos personales). Es el único script externo permitido:
+la línea `static.cloudflareinsights.com/beacon.min.js` va antes de `</body>` en cada
+página, con el token del sitio `kaeliapps.com` (Cloudflare → Análisis web).
+AlojaConmigo, Sesly y CreatiPlan lo tienen activado desde su proyecto de
+Cloudflare Pages (Métricas → Web Analytics) y no necesitan la línea.
+
+## Mapa del sitio
+
+`robots.txt` y `sitemap.xml` en la raíz. Google Search Console usa la propiedad
+de dominio `kaeliapps.com`, que cubre todos los subdominios.
 
 ## Textos: no encasillar el público de las apps
 
